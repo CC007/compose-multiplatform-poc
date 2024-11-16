@@ -55,11 +55,10 @@ kotlin {
             implementation(compose.ui)
             implementation(compose.components.resources)
             implementation(compose.components.uiToolingPreview)
-            implementation(libs.androidx.lifecycle.viewmodel)
             implementation(libs.androidx.lifecycle.viewmodel.compose)
             implementation(libs.androidx.lifecycle.runtime.compose)
+//            implementation(libs.androidx.navigation.compose)
             implementation(projects.shared)
-//            implementation("androidx.navigation:navigation-compose:2.8.3")
         }
         desktopMain.dependencies {
             implementation(compose.desktop.currentOs)

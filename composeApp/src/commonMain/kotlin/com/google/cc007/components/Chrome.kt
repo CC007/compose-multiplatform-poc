@@ -1,9 +1,6 @@
 package com.google.cc007.components
 
 import androidx.compose.material.*
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Home
-import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -11,7 +8,6 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.google.cc007.components.page.Budgets
-import com.google.cc007.components.page.Expenses
 import com.google.cc007.components.page.Home
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -75,7 +71,7 @@ fun Chrome(
             )
         },
         content = { paddingValues ->
-            Budgets(paddingValues)
+            Home(paddingValues)
         },
     )
 }
