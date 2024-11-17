@@ -1,24 +1,39 @@
 package com.google.cc007.components.page
 
-import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.text.selection.SelectionContainer
+import androidx.compose.material.Button
 import androidx.compose.material.Text
-import androidx.compose.runtime.*
-import androidx.compose.ui.Modifier
-import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
+import androidx.navigation.NavController
+import com.google.cc007.components.ChromeScreen
 import com.google.cc007.components.ChromeViewModel
 import org.jetbrains.compose.ui.tooling.preview.Preview
 
 @Composable
 @Preview
 fun Home(
-    paddingValues: PaddingValues,
-    chromeViewModel: ChromeViewModel = viewModel(),
+    chromeViewModel: ChromeViewModel,
+    chromeNavController: NavController,
 ) {
     val chromeState by chromeViewModel.chromeState.collectAsState()
     chromeViewModel.setTitle("Home")
-    Text(
-        text = "Page title: ${chromeState.title}",
-        modifier = Modifier.padding(paddingValues)
-    )
+    chromeViewModel.setBackIcon(null)
+
+    Column {
+        SelectionContainer {
+            Text(
+                text = "Page title: ${chromeState.title}",
+            )
+        }
+        Button(
+            onClick = {
+                chromeNavController.navigate(ChromeScreen.Budgets)
+            },
+        ) {
+            Text("Go to Budgets")
+        }
+    }
 }
