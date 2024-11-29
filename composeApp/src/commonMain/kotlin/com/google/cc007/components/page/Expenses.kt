@@ -11,25 +11,33 @@ import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
-import com.google.cc007.components.ChromeViewModel
-import org.jetbrains.compose.ui.tooling.preview.Preview
+import com.google.cc007.components.ChromeScreen
+import com.google.cc007.components.ChromeState
+import com.google.cc007.components.ChromeStates
+import kotlinx.serialization.Serializable
+
+@Serializable
+data class Expenses(val budgetId: Int) : ChromeScreen {
+    init {
+        ChromeStates[this] = ChromeState(
+            title = "Expenses: $budgetId",
+            backIcon = Icons.AutoMirrored.Filled.ArrowBack,
+        )
+    }
+    override val state
+        get() = ChromeStates[this]!!
+}
 
 @Composable
-@Preview
 fun Expenses(
-    chromeViewModel: ChromeViewModel,
+    chromeState: ChromeState,
     chromeNavController: NavController,
     budgetId: Int,
 ) {
-    val chromeState by chromeViewModel.chromeState.collectAsState()
-    chromeViewModel.setTitle("Expenses: $budgetId")
-    chromeViewModel.setBackIcon(Icons.AutoMirrored.Filled.ArrowBack)
     Column(
         modifier = Modifier.verticalScroll(rememberScrollState())
     ) {

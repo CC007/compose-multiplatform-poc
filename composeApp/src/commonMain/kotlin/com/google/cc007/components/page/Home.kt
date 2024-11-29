@@ -5,23 +5,29 @@ import androidx.compose.foundation.text.selection.SelectionContainer
 import androidx.compose.material.Button
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
 import androidx.navigation.NavController
 import com.google.cc007.components.ChromeScreen
-import com.google.cc007.components.ChromeViewModel
-import org.jetbrains.compose.ui.tooling.preview.Preview
+import com.google.cc007.components.ChromeState
+import com.google.cc007.components.ChromeStates
+import kotlinx.serialization.Serializable
+
+@Serializable
+data object Home : ChromeScreen {
+    init {
+        ChromeStates[this] = ChromeState(
+            title = "Home",
+            backIcon = null
+        )
+    }
+    override val state
+        get() = ChromeStates[this]!!
+}
 
 @Composable
-@Preview
 fun Home(
-    chromeViewModel: ChromeViewModel,
+    chromeState: ChromeState,
     chromeNavController: NavController,
 ) {
-    val chromeState by chromeViewModel.chromeState.collectAsState()
-    chromeViewModel.setTitle("Home")
-    chromeViewModel.setBackIcon(null)
-
     Column {
         SelectionContainer {
             Text(
@@ -30,7 +36,7 @@ fun Home(
         }
         Button(
             onClick = {
-                chromeNavController.navigate(ChromeScreen.Budgets)
+                chromeNavController.navigate(Budgets)
             },
         ) {
             Text("Go to Budgets")

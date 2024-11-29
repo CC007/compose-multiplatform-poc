@@ -12,25 +12,33 @@ import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.google.cc007.components.ChromeScreen
-import com.google.cc007.components.ChromeViewModel
-import org.jetbrains.compose.ui.tooling.preview.Preview
+import com.google.cc007.components.ChromeState
+import com.google.cc007.components.ChromeStates
+import kotlinx.serialization.Serializable
+
+@Serializable
+data object Budgets : ChromeScreen {
+    init {
+        ChromeStates[this] = ChromeState(
+            title = "Budgets",
+            backIcon = Icons.Default.Home,
+        )
+    }
+    override val state
+        get() = ChromeStates[Budgets]!!
+}
+
 
 @Composable
-@Preview
 fun Budgets(
-    chromeViewModel: ChromeViewModel,
+    chromeState: ChromeState,
     chromeNavController: NavController,
 ) {
-    val chromeState by chromeViewModel.chromeState.collectAsState()
-    chromeViewModel.setTitle("Budgets")
-    chromeViewModel.setBackIcon(Icons.Default.Home)
     Column(
         modifier = Modifier.verticalScroll(rememberScrollState())
     ) {
@@ -54,7 +62,7 @@ fun Budgets(
                     }
                     Button(
                         onClick = {
-                            chromeNavController.navigate(ChromeScreen.Expenses(i))
+                            chromeNavController.navigate(Expenses(i))
                         },
                     ) {
                         Text("Go to Expenses")
